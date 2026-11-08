@@ -1,0 +1,9 @@
+input/*.csv
+input/*.zip
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+*.pyc
+
+
+sql/*.sqlite

@@ -1,0 +1,69 @@
+table FactInventarioCorte
+	lineageTag: d08cc2db-c486-4655-b8b9-42c3bb58e9ed
+
+	column Store
+		dataType: string
+		lineageTag: 15d3c3a3-6f85-4907-9582-219147a9a30c
+		summarizeBy: none
+		sourceColumn: Store
+
+	column 'Product No'
+		dataType: string
+		lineageTag: d7332b2f-8484-4a98-8e06-2392fe397eb3
+		summarizeBy: none
+		sourceColumn: Product No
+
+	column 'Qty on hand'
+		dataType: double
+		lineageTag: f21fafd4-3b46-4597-8595-64d7d700acf8
+		summarizeBy: none
+		sourceColumn: Qty on hand
+
+	column 'Cost of Stocks'
+		dataType: double
+		lineageTag: 898f0478-fca7-4744-88ae-e15271aa7931
+		summarizeBy: none
+		sourceColumn: Cost of Stocks
+
+	column estado_corte
+		dataType: string
+		lineageTag: d47be5c8-08ca-4088-a429-b259e4206130
+		summarizeBy: none
+		sourceColumn: estado_corte
+
+	column fecha_ultimo_registro
+		dataType: dateTime
+		lineageTag: 153f3cab-4075-4379-8e03-7d73319c810d
+		summarizeBy: none
+		sourceColumn: fecha_ultimo_registro
+
+	column qty_ultimo_registro
+		dataType: double
+		lineageTag: 76f75af8-978c-43f2-9aab-db682df08cca
+		summarizeBy: none
+		sourceColumn: qty_ultimo_registro
+
+	column dias_desde_ultimo_registro
+		dataType: int64
+		lineageTag: 6fbd7f78-6a78-4f0a-9031-6242fbac5a0c
+		summarizeBy: none
+		sourceColumn: dias_desde_ultimo_registro
+
+	column fecha_corte
+		dataType: dateTime
+		lineageTag: aac6130b-943c-437c-b321-12f61bf0dde3
+		summarizeBy: none
+		sourceColumn: fecha_corte
+
+	partition FactInventarioCorte = m
+		mode: import
+		source =
+			let
+			    Ruta = pCarpetaOutput & "\FactInventarioCorte.csv",
+			    Fuente = Csv.Document(File.Contents(Ruta), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+			    Encabezados = Table.PromoteHeaders(Fuente, [PromoteAllScalars=true]),
+			    Tipos = Table.TransformColumnTypes(Encabezados, {{"Store", type text}, {"Product No", type text}, {"Qty on hand", type number}, {"Cost of Stocks", type number}, {"estado_corte", type text}, {"fecha_ultimo_registro", type date}, {"qty_ultimo_registro", type number}, {"dias_desde_ultimo_registro", Int64.Type}, {"fecha_corte", type date}}, "en-US")
+			in
+			    Tipos
+
+	annotation PBI_ResultType = Table

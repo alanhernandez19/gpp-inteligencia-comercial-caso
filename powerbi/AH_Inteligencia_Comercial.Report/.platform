@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Caso_Adopcion_Digital"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "907bd631-15f2-49ae-b6ce-1a48792a383f"
+  }
+}

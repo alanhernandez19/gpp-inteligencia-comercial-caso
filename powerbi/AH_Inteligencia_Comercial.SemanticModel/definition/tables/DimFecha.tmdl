@@ -1,0 +1,25 @@
+table DimFecha
+	lineageTag: a49fd6db-a7d4-454e-9cc3-ecb7ef65d4c7
+
+	column Fecha
+		dataType: dateTime
+		sourceColumn: [Date]
+
+	column Año = YEAR ( DimFecha[Fecha] )
+		dataType: int64
+
+	column MesNumero = MONTH ( DimFecha[Fecha] )
+		dataType: int64
+
+	column Mes = FORMAT ( DimFecha[Fecha], "MMMM", "es-MX" )
+		dataType: string
+
+	column AñoMes = FORMAT ( DimFecha[Fecha], "yyyy-MM" )
+		dataType: string
+
+	column Semana = WEEKNUM ( DimFecha[Fecha], 2 )
+		dataType: int64
+
+	partition DimFecha = calculated
+		mode: import
+		source = CALENDAR ( MIN ( FactVentas[fecha] ), MAX ( FactVentas[fecha] ) )

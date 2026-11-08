@@ -1,0 +1,25 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-MX
+	valueFilterBehavior: independent
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["FactVentas","DimProducto","FactInventarioCorte","FactForecastSemanal","pCarpetaOutput"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table FactVentas
+ref table DimProducto
+ref table FactInventarioCorte
+ref table FactForecastSemanal
+ref table DimFecha
+ref table DimTienda
+ref table 01_Medidas_Generales
+ref table 02_Medidas_Rentabilidad
+ref table 03_Medidas_Inventario
+ref table 04_Medidas_Calidad
+ref table 05_Medidas_Forecast
+
+ref cultureInfo es-MX

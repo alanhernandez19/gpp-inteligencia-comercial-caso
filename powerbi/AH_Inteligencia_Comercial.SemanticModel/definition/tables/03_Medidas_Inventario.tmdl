@@ -1,0 +1,47 @@
+table '03_Medidas_Inventario'
+	lineageTag: d8231936-0950-483c-8e36-605932585b27
+
+	measure '1. Unidades inventario corte' = SUM ( FactInventarioCorte[Qty on hand] )
+		formatString: #,0
+		lineageTag: efc31fda-f6a4-48e9-bd73-045838cb1723
+
+	measure '2. Valor inventario corte' = SUM ( FactInventarioCorte[Cost of Stocks] )
+		formatString: #,0.00
+		lineageTag: 4f784d24-aa77-4e10-a084-edd2fc63e165
+
+	measure '3. Pares con existencia positiva' = CALCULATE ( COUNTROWS ( FactInventarioCorte ), FactInventarioCorte[estado_corte] = "STOCK_POSITIVO" )
+		formatString: #,0
+		lineageTag: 00d0dc03-a800-456e-bd6e-35f8d39fdc44
+
+	measure '4. Pares sin dato al corte' = CALCULATE ( COUNTROWS ( FactInventarioCorte ), FactInventarioCorte[estado_corte] = "SIN_DATO" )
+		formatString: #,0
+		lineageTag: 8b229374-7730-408f-80a3-50e3e7401738
+
+	measure '5. Pares al corte' = COUNTROWS ( FactInventarioCorte )
+		formatString: #,0
+		lineageTag: a2c5a07d-0eb7-43a4-9187-0ed6964bd160
+
+	measure '6. Pares con estado cero' = CALCULATE ( [5. Pares al corte], FactInventarioCorte[estado_corte] = "STOCK_CERO" )
+		formatString: #,0
+		lineageTag: 3720c126-9b80-46b7-b31b-bc8c37caf4a7
+
+	measure '7. Pares con estado negativo' = CALCULATE ( [5. Pares al corte], FactInventarioCorte[estado_corte] = "STOCK_NEGATIVO" )
+		formatString: #,0
+		lineageTag: 537aca48-0aca-4e07-9fd0-1bfdb0c35588
+
+	measure '8. Pares sin intervalo con historial' = CALCULATE ( [4. Pares sin dato al corte], NOT ISBLANK ( FactInventarioCorte[fecha_ultimo_registro] ) )
+		formatString: #,0
+		lineageTag: b8f8c4ec-816c-4125-99fc-6fbd850a3f4d
+
+	measure '9. Días desde último registro promedio' = CALCULATE ( AVERAGE ( FactInventarioCorte[dias_desde_ultimo_registro] ), FactInventarioCorte[estado_corte] = "SIN_DATO" )
+		formatString: #,0
+		lineageTag: e3ac81a0-1892-4031-9bc3-099d61f0bac0
+
+	partition '03_Medidas_Inventario' = m
+		mode: import
+		source =
+			let
+			    Origen = #table(type table [Marcador = text], {}),
+			    Limpio = Table.RemoveColumns(Origen, {"Marcador"})
+			in
+			    Limpio

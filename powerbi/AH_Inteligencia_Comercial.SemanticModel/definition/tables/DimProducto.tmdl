@@ -1,0 +1,93 @@
+table DimProducto
+	lineageTag: 520669fb-5d55-4baa-8653-274a51ffe6f6
+
+	column 'Product No'
+		dataType: string
+		lineageTag: 3fc8e2a4-4de9-4ab1-9912-2cb0ff4e876b
+		summarizeBy: none
+		sourceColumn: Product No
+
+	column 'Product Description'
+		dataType: string
+		lineageTag: a076e565-0731-4509-94b8-b91fe558be0f
+		summarizeBy: none
+		sourceColumn: Product Description
+
+	column 'Product Division'
+		dataType: string
+		lineageTag: 5b441442-bebb-4e55-8df5-059ab9e6769a
+		summarizeBy: none
+		sourceColumn: Product Division
+
+	column 'Product Category'
+		dataType: string
+		lineageTag: 03bd858b-0851-421a-bc32-5f6f7cea1fbb
+		summarizeBy: none
+		sourceColumn: Product Category
+
+	column 'Product Subcategory'
+		dataType: string
+		lineageTag: 5312657b-6823-4e4b-83b7-f642241f0fda
+		summarizeBy: none
+		sourceColumn: Product Subcategory
+
+	column 'Product Segment'
+		dataType: string
+		lineageTag: 3e08ca7c-5670-4406-be33-1be1c0d506b6
+		summarizeBy: none
+		sourceColumn: Product Segment
+
+	column Supplier
+		dataType: string
+		lineageTag: 6daab494-e351-4e33-b0d5-b107d6584b24
+		summarizeBy: none
+		sourceColumn: Supplier
+
+	column abc_ventas
+		dataType: string
+		lineageTag: e02f7d34-546b-4f08-af70-04f46270fd79
+		summarizeBy: none
+		sourceColumn: abc_ventas
+
+	column xyz_demanda
+		dataType: string
+		lineageTag: efd658cb-b9ab-4c3a-9c48-04265180124f
+		summarizeBy: none
+		sourceColumn: xyz_demanda
+
+	column perfil_intermitencia
+		dataType: string
+		lineageTag: 140d77d5-57a6-41ba-a610-dea5b0f2a4c0
+		summarizeBy: none
+		sourceColumn: perfil_intermitencia
+
+	column adi
+		dataType: double
+		lineageTag: 69b56f89-1ed9-4cc5-b2a0-b1a932b58230
+		summarizeBy: none
+		sourceColumn: adi
+
+	column cv2
+		dataType: double
+		lineageTag: 13ddc94b-eac6-4e05-9857-d1ea2405e31d
+		summarizeBy: none
+		sourceColumn: cv2
+
+	column cv_semanal
+		dataType: double
+		lineageTag: f91148b5-7fd8-4a89-bfa3-4ac8000ca610
+		summarizeBy: none
+		sourceColumn: cv_semanal
+
+	partition DimProducto = m
+		mode: import
+		source =
+			let
+			    Ruta = pCarpetaOutput & "\DimProducto.csv",
+			    Fuente = Csv.Document(File.Contents(Ruta), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+			    Encabezados = Table.PromoteHeaders(Fuente, [PromoteAllScalars=true]),
+			    Tipos = Table.TransformColumnTypes(Encabezados, {{"Product No", type text}, {"Product Description", type text}, {"Product Division", type text}, {"Product Category", type text}, {"Product Subcategory", type text}, {"Product Segment", type text}, {"Supplier", type text}, {"abc_ventas", type text}, {"xyz_demanda", type text}, {"perfil_intermitencia", type text}, {"adi", type number}, {"cv2", type number}, {"cv_semanal", type number}}, "en-US")
+			in
+			    Tipos
+
+	annotation PBI_ResultType = Table

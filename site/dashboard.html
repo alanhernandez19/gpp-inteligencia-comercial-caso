@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#071A2D"><meta name="description" content="GPP Group · caso práctico independiente: exploración interactiva de ventas, márgenes, inventario, calidad de datos y planeación con fuentes trazables."><title>GPP Group | Inteligencia Comercial · Caso práctico</title><link rel="stylesheet" href="styles.css"><link rel="icon" href="favicon.svg"></head>
+<body>
+<div id="app" class="app">
+<aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+<a class="brand" href="#panorama"><img class="gpp-dashboard-logo" src="logo-gpp-dashboard.png" alt="GPP Group · Inteligencia Comercial" width="174" height="48"><span><strong>INTELIGENCIA<br>COMERCIAL</strong><small>GPP GROUP / CASO PRÁCTICO</small></span></a>
+<div class="side-caption">CENTRO DE DECISIONES</div>
+<nav id="mainNav" class="main-nav" aria-label="Secciones del portal"><a class="nav-intro" href="index.html">◂ &nbsp; Contexto del caso</a>
+<button data-page="panorama" class="active"><span class="nav-symbol">◈</span><span>Panorama</span><em>01</em></button>
+<button data-page="rentabilidad"><span class="nav-symbol">◫</span><span>Ventas y margen</span><em>02</em></button>
+<button data-page="portafolio"><span class="nav-symbol">▦</span><span>Portafolio</span><em>03</em></button>
+<button data-page="inventario"><span class="nav-symbol">⬡</span><span>Inventario</span><em>04</em></button>
+<button data-page="calidad"><span class="nav-symbol">◇</span><span>Calidad de datos</span><em>05</em></button>
+<button data-page="pronostico"><span class="nav-symbol">⌁</span><span>Pronóstico</span><em>06</em></button>
+<button data-page="simulador"><span class="nav-symbol">⊞</span><span>Simulador</span><em>07</em></button>
+<button data-page="metodologia"><span class="nav-symbol">☷</span><span>Metodología</span><em>08</em></button>
+</nav>
+<div class="side-bottom"><div class="tiny-led"></div><span>DATOS OBSERVADOS<br><b>Retail · muestra publicada</b></span></div>
+<div class="sidebar-foot">GPP • INTELIGENCIA COMERCIAL<br><span>Demostración analítica independiente</span></div>
+</aside>
+<div class="workspace">
+<header class="topbar"><button class="mobile-menu" id="mobileMenu" aria-label="Abrir menú">☰</button><div class="crumb">GPP <span>/</span> CASO PRÁCTICO <span>/</span> <b>CENTRO ANALÍTICO</b></div><div class="top-right"><span class="top-led"></span>MODELO RETAIL <span class="top-sep"></span><span id="cutLabel">CORTE 24 ABR 2026</span></div></header>
+<main id="main" tabindex="-1"><div class="hero">
+<div class="hero-copy"><div class="eyebrow"><span class="live-pulse"></span> GPP GROUP / DEMOSTRACIÓN ANALÍTICA</div><h1>Del dato disperso<br><em>a decisiones confiables.</em></h1><p>Ventas, rentabilidad, continuidad del inventario y calidad del registro en una sola experiencia. Explora la evidencia, investiga discrepancias y evalúa escenarios con supuestos explícitos.</p><div class="hero-actions"><button id="heroExplore" class="btn-primary">Explorar hallazgos <span>↗</span></button><button id="heroMethod" class="btn-outline">Ver metodología <span>↗</span></button></div></div>
+<div class="hero-art" aria-hidden="true"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb-center"><span>GPP</span><small>BUSINESS INTELLIGENCE</small></div><div class="orb-label orb-a">COMERCIAL <strong>44.21% margen</strong></div><div class="orb-label orb-b">CALIDAD <strong>33,160 líneas</strong></div><div class="orb-label orb-c">FORECAST <strong>4 + 8 semanas</strong></div></div>
+</div>
+<section class="report-area" id="reportArea"><div class="section-head"><div><div class="eyebrow small" id="pageKicker">01 / VISTA ESTRATÉGICA</div><h2 id="pageTitle">Panorama ejecutivo</h2><p id="pageDesc">Indicadores comerciales y señales para investigar.</p></div><div class="source-chip"><span class="source-dot"></span> FUENTE • MENDELEY DATA V1</div></div>
+<div class="filters" id="filterArea"><div class="filter-title">EXPLORACIÓN <span>FILTRADA</span></div><label>DIVISIÓN<select id="divisionFilter" aria-label="Filtrar división"><option value="">Todas las divisiones</option></select></label><label>TIENDA<select id="storeFilter" aria-label="Filtrar tienda"><option value="">Todas las tiendas</option></select></label><label>DESDE<select id="monthFrom" aria-label="Mes inicial"></select></label><label>HASTA<select id="monthTo" aria-label="Mes final"></select></label><button id="resetFilters" class="reset" title="Restablecer filtros">↺ <span>Limpiar</span></button></div>
+<div id="view" class="view"><div class="loading"><span class="spinner"></span><h3>Preparando el centro analítico</h3><p>Lectura de los indicadores publicados</p></div></div>
+</section>
+<footer><div><b>GPP</b> / CASO PRÁCTICO DE INTELIGENCIA COMERCIAL <span>·</span> Datos: Jimmy Smith, Retail Transactions and Stocks Data, Mendeley Data v1 <span>·</span> <a href="https://doi.org/10.17632/27x8mjm8k4.1" target="_blank" rel="noopener">Fuente y licencia CC BY 4.0 ↗</a></div><small>Moneda no especificada · Importes sin símbolo monetario · Escenarios identificados</small></footer>
+</main></div></div>
+<div id="drawerShade" class="drawer-shade" hidden></div><aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Detalle de producto" hidden><button id="drawerClose" aria-label="Cerrar detalle" class="close-drawer">✕</button><div id="drawerBody"></div></aside>
+<div id="toast" class="toast" role="status" aria-live="polite"></div><script src="data.js" defer></script><script src="app.js" defer></script></body></html>

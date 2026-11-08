@@ -1,0 +1,131 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "3b8a3c9d4a8b41a096ee",
+  "position": {
+    "x": 69,
+    "y": 589,
+    "z": 100,
+    "height": 304,
+    "width": 1768,
+    "tabOrder": 100
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactForecastSemanal"
+                    }
+                  },
+                  "Property": "semana_fin"
+                }
+              },
+              "queryRef": "FactForecastSemanal.semana_fin",
+              "nativeQueryRef": "semana_fin",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "05_Medidas_Forecast"
+                    }
+                  },
+                  "Property": "1. Venta observada semanal"
+                }
+              },
+              "queryRef": "05_Medidas_Forecast.1. Venta observada semanal",
+              "nativeQueryRef": "1. Venta observada semanal",
+              "active": true,
+              "displayName": "Observado"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "05_Medidas_Forecast"
+                    }
+                  },
+                  "Property": "2. Pronóstico semanal"
+                }
+              },
+              "queryRef": "05_Medidas_Forecast.2. Pronóstico semanal",
+              "nativeQueryRef": "2. Pronóstico semanal",
+              "active": true,
+              "displayName": "Proyección de referencia"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

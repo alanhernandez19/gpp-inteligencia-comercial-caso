@@ -1,0 +1,39 @@
+table FactForecastSemanal
+	lineageTag: f03a5918-4e49-4447-a518-beec93681137
+
+	column semana_fin
+		dataType: dateTime
+		lineageTag: b44e3dae-631f-428f-becf-628ed4453f54
+		summarizeBy: none
+		sourceColumn: semana_fin
+
+	column tipo
+		dataType: string
+		lineageTag: 006f8d9a-50f5-44ae-8ece-a02ae7493222
+		summarizeBy: none
+		sourceColumn: tipo
+
+	column valor
+		dataType: double
+		lineageTag: e28e2341-1a92-40f9-acc7-2b93b52ddcbf
+		summarizeBy: none
+		sourceColumn: valor
+
+	column modelo
+		dataType: string
+		lineageTag: fc149a1e-537d-4c8f-b6c6-7c9ef56ee6c5
+		summarizeBy: none
+		sourceColumn: modelo
+
+	partition FactForecastSemanal = m
+		mode: import
+		source =
+			let
+			    Ruta = pCarpetaOutput & "\FactForecastSemanal.csv",
+			    Fuente = Csv.Document(File.Contents(Ruta), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+			    Encabezados = Table.PromoteHeaders(Fuente, [PromoteAllScalars=true]),
+			    Tipos = Table.TransformColumnTypes(Encabezados, {{"semana_fin", type date}, {"tipo", type text}, {"valor", type number}, {"modelo", type text}}, "en-US")
+			in
+			    Tipos
+
+	annotation PBI_ResultType = Table

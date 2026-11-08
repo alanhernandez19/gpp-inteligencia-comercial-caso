@@ -1,0 +1,35 @@
+table '04_Medidas_Calidad'
+	lineageTag: 8351dcdf-fbe6-4f4b-8db9-6dfaa38a1ddb
+
+	measure '1. Líneas sin dato inventario' = CALCULATE ( [4. Líneas de venta], FactVentas[estado_cobertura] = "SIN_DATO" )
+		formatString: #,0
+		lineageTag: 58ad8e26-e2d8-4669-92c1-bc5e0bcfd3c0
+
+	measure '2. Venta sin dato inventario' = CALCULATE ( [1. Venta neta], FactVentas[estado_cobertura] = "SIN_DATO" )
+		formatString: #,0.00
+		lineageTag: 327d0641-9a8d-42c2-b972-b6343758b7db
+
+	measure '3. Venta sin dato %' = DIVIDE ( [2. Venta sin dato inventario], [1. Venta neta] )
+		formatString: 0.00%
+		lineageTag: c7a70a30-b90b-4908-b945-c30cddaf75f8
+
+	measure '4. Líneas con stock no positivo' = CALCULATE ( [4. Líneas de venta], FactVentas[estado_cobertura] IN { "STOCK_CERO", "STOCK_NEGATIVO" } )
+		formatString: #,0
+		lineageTag: 47acd874-eb15-4d1a-95af-f453cb843df5
+
+	measure '5. Líneas sin dato %' = DIVIDE ( [1. Líneas sin dato inventario], [4. Líneas de venta] )
+		formatString: 0.00%
+		lineageTag: 8d1343eb-2497-4c37-b917-900ebbeb7db4
+
+	measure '6. Líneas con intervalo válido' = [4. Líneas de venta] - [1. Líneas sin dato inventario]
+		formatString: #,0
+		lineageTag: 7ba74854-02e7-4ef8-a296-2bb5019a7a42
+
+	partition '04_Medidas_Calidad' = m
+		mode: import
+		source =
+			let
+			    Origen = #table(type table [Marcador = text], {}),
+			    Limpio = Table.RemoveColumns(Origen, {"Marcador"})
+			in
+			    Limpio

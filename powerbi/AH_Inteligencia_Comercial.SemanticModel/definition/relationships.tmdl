@@ -1,0 +1,20 @@
+relationship 6cc00a31-8fb8-4d6c-9f50-d59dcb8ccbd1
+	fromColumn: FactVentas.'Product No'
+	toColumn: DimProducto.'Product No'
+
+relationship 80acb548-b59a-439a-a06b-924877481171
+	fromColumn: FactInventarioCorte.'Product No'
+	toColumn: DimProducto.'Product No'
+
+relationship af4372ca-2e42-4759-acaa-68480faf66d0
+	fromColumn: FactVentas.Store
+	toColumn: DimTienda.Store
+
+relationship 197a2142-db7a-4e27-9a34-d1ccc863d7c0
+	fromColumn: FactInventarioCorte.Store
+	toColumn: DimTienda.Store
+
+relationship 1edc0ace-360e-4ab2-b956-f90a2e7dd3a1
+	fromColumn: FactVentas.fecha
+	toColumn: DimFecha.Fecha
+

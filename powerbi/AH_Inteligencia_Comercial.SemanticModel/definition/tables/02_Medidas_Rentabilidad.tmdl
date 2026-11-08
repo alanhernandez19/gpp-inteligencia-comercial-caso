@@ -1,0 +1,35 @@
+table '02_Medidas_Rentabilidad'
+	lineageTag: 0c25ccdd-84e3-4c70-b5a9-82615dad29f6
+
+	measure '1. Margen bruto' = [1. Venta neta] - [2. Costo de ventas]
+		formatString: #,0.00
+		lineageTag: 7905e3ce-05a7-46a3-badf-be57fc024f69
+
+	measure '2. Margen bruto %' = DIVIDE ( [1. Margen bruto], [1. Venta neta] )
+		formatString: 0.00%
+		lineageTag: f3a7f1d0-2ec6-4c5d-b172-a2097b33bfdc
+
+	measure '3. Venta bajo costo' = CALCULATE ( [1. Venta neta], FILTER ( FactVentas, FactVentas[Is Return] = 0 && FactVentas[Cogs] > FactVentas[Sales Amount] ) )
+		formatString: #,0.00
+		lineageTag: aeeca97f-ac7b-4d7a-a1d1-301716234d0b
+
+	measure '4. Líneas bajo costo' = CALCULATE ( COUNTROWS ( FactVentas ), FILTER ( FactVentas, FactVentas[Is Return] = 0 && FactVentas[Cogs] > FactVentas[Sales Amount] ) )
+		formatString: #,0
+		lineageTag: 852f64d5-d285-40bb-bfbd-f44f46ade7f1
+
+	measure '5. Participación venta %' = DIVIDE ( [1. Venta neta], CALCULATE ( [1. Venta neta], ALLSELECTED ( DimProducto ) ) )
+		formatString: 0.00%
+		lineageTag: 522fc430-128f-47c8-92f6-aed7cb57ec8a
+
+	measure '6. Productos distintos' = DISTINCTCOUNT ( FactVentas[Product No] )
+		formatString: #,0
+		lineageTag: 2eaa3e5f-3760-4e66-9796-c8c9d3c891ab
+
+	partition '02_Medidas_Rentabilidad' = m
+		mode: import
+		source =
+			let
+			    Origen = #table(type table [Marcador = text], {}),
+			    Limpio = Table.RemoveColumns(Origen, {"Marcador"})
+			in
+			    Limpio

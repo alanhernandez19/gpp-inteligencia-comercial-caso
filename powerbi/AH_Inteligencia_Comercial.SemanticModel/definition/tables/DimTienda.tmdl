@@ -1,0 +1,10 @@
+table DimTienda
+	lineageTag: bfe140d0-bc75-4520-a074-ba32c534b278
+
+	column Store
+		dataType: string
+		sourceColumn: [Store]
+
+	partition DimTienda = calculated
+		mode: import
+		source = DISTINCT ( UNION ( SELECTCOLUMNS ( FactVentas, "Store", FactVentas[Store] ), SELECTCOLUMNS ( FactInventarioCorte, "Store", FactInventarioCorte[Store] ) ) )

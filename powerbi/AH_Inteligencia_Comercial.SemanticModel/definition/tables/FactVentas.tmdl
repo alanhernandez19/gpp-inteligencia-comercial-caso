@@ -1,0 +1,81 @@
+table FactVentas
+	lineageTag: 578f3683-eebc-4579-a76a-9e72d35181e1
+
+	column fecha
+		dataType: dateTime
+		lineageTag: 4770d1f3-a7f5-4a83-bb1c-6dbe2bcb4e6d
+		summarizeBy: none
+		sourceColumn: fecha
+
+	column Store
+		dataType: string
+		lineageTag: e98d6151-d26a-4b96-84f1-3424266160fc
+		summarizeBy: none
+		sourceColumn: Store
+
+	column 'Product No'
+		dataType: string
+		lineageTag: 789c456c-7f7a-447f-9808-14fd993c3e04
+		summarizeBy: none
+		sourceColumn: Product No
+
+	column 'Sales Type'
+		dataType: string
+		lineageTag: 47b1b9b2-b776-46b7-8d45-eeb1ab6c9e44
+		summarizeBy: none
+		sourceColumn: Sales Type
+
+	column 'Is Return'
+		dataType: int64
+		lineageTag: ed24f027-f528-465c-87e8-98a6293f68da
+		summarizeBy: none
+		sourceColumn: Is Return
+
+	column 'Qty Sold'
+		dataType: double
+		lineageTag: fb805d29-29e3-4a95-9bd3-0e0a52befc04
+		summarizeBy: none
+		sourceColumn: Qty Sold
+
+	column 'Sales Amount'
+		dataType: double
+		lineageTag: c0cac33c-e2b2-4fed-9c26-d8ff30c1e0f8
+		summarizeBy: none
+		sourceColumn: Sales Amount
+
+	column Cogs
+		dataType: double
+		lineageTag: 5a1289e3-99b1-4a77-bf8c-913a5a418b9f
+		summarizeBy: none
+		sourceColumn: Cogs
+
+	column 'Number of Transactions'
+		dataType: int64
+		lineageTag: c385aeee-9868-4f22-a4ac-408d8b45b839
+		summarizeBy: none
+		sourceColumn: Number of Transactions
+
+	column estado_cobertura
+		dataType: string
+		lineageTag: 1e1a766c-7e36-47bc-81c0-36759890efd5
+		summarizeBy: none
+		sourceColumn: estado_cobertura
+
+	column causa_sin_dato
+		dataType: string
+		lineageTag: 203bd6da-3919-4874-b062-81b77896df6a
+		summarizeBy: none
+		sourceColumn: causa_sin_dato
+
+	partition FactVentas = m
+		mode: import
+		source =
+			let
+			    Ruta = pCarpetaOutput & "\FactVentas.csv",
+			    Fuente = Csv.Document(File.Contents(Ruta), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+			    Encabezados = Table.PromoteHeaders(Fuente, [PromoteAllScalars=true]),
+			    Tipos = Table.TransformColumnTypes(Encabezados, {{"fecha", type date}, {"Store", type text}, {"Product No", type text}, {"Sales Type", type text}, {"Is Return", Int64.Type}, {"Qty Sold", type number}, {"Sales Amount", type number}, {"Cogs", type number}, {"Number of Transactions", Int64.Type}, {"estado_cobertura", type text}, {"causa_sin_dato", type text}}, "en-US")
+			in
+			    Tipos
+
+	annotation PBI_ResultType = Table

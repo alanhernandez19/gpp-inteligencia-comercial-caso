@@ -1,0 +1,19 @@
+table '05_Medidas_Forecast'
+	lineageTag: 2ed5b07a-2ae6-477b-8747-4dd3dc534922
+
+	measure '1. Venta observada semanal' = CALCULATE ( SUM ( FactForecastSemanal[valor] ), FactForecastSemanal[tipo] = "OBSERVADO" )
+		formatString: #,0.00
+		lineageTag: e69fc0f2-cef6-45d7-b437-b9c1539eba2c
+
+	measure '2. Pronóstico semanal' = CALCULATE ( SUM ( FactForecastSemanal[valor] ), FactForecastSemanal[tipo] = "PRONOSTICO" )
+		formatString: #,0.00
+		lineageTag: 506dbc88-a774-4d68-98b3-13a389ca6c3b
+
+	partition '05_Medidas_Forecast' = m
+		mode: import
+		source =
+			let
+			    Origen = #table(type table [Marcador = text], {}),
+			    Limpio = Table.RemoveColumns(Origen, {"Marcador"})
+			in
+			    Limpio

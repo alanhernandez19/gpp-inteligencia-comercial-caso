@@ -1,0 +1,39 @@
+table '01_Medidas_Generales'
+	lineageTag: b6782596-b460-4934-9b13-5ea4c782c90b
+
+	measure '1. Venta neta' = SUM ( FactVentas[Sales Amount] )
+		formatString: #,0.00
+		lineageTag: 15f43505-4b71-42a0-8fc5-ee9c5d73da36
+
+	measure '2. Costo de ventas' = SUM ( FactVentas[Cogs] )
+		formatString: #,0.00
+		lineageTag: 04e4f91e-e94c-4187-b818-d0e3dfa7541b
+
+	measure '3. Unidades netas' = SUM ( FactVentas[Qty Sold] )
+		formatString: #,0
+		lineageTag: f6257b74-c0b5-4e52-b44b-ba5b8ea71451
+
+	measure '4. Líneas de venta' = COUNTROWS ( FactVentas )
+		formatString: #,0
+		lineageTag: 932ee6a8-619a-4b1d-94ea-951e26cd47a2
+
+	measure '5. Venta bruta' = CALCULATE ( [1. Venta neta], FactVentas[Is Return] = 0 )
+		formatString: #,0.00
+		lineageTag: 817a6b73-787b-49bd-bc0f-025825edc497
+
+	measure '6. Devoluciones importe' = - CALCULATE ( [1. Venta neta], FactVentas[Is Return] = 1 )
+		formatString: #,0.00
+		lineageTag: 2d308dc3-4d81-43f4-9cb3-65c38efa8e65
+
+	measure '7. Tasa devolución %' = DIVIDE ( [6. Devoluciones importe], [5. Venta bruta] )
+		formatString: 0.00%
+		lineageTag: ad9fa2b1-7d17-448a-ad25-ce47932c043a
+
+	partition '01_Medidas_Generales' = m
+		mode: import
+		source =
+			let
+			    Origen = #table(type table [Marcador = text], {}),
+			    Limpio = Table.RemoveColumns(Origen, {"Marcador"})
+			in
+			    Limpio

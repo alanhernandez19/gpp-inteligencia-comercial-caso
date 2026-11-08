@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Caso_Adopcion_Digital"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "cf4be9cb-36f7-479d-9d1c-c5e94cc5db7c"
+  }
+}
